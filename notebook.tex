@@ -1,0 +1,1919 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{final\_project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{final-project}{%
+\section{Final Project}\label{final-project}}
+
+\textbf{Anushka Prativadhi}
+
+CDS 411
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Standard imports for CDS 411 projects}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{c+c1}{\PYZsh{} Place additional imports below this line}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{HTML}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}\PY{p}{,}\PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{export\PYZus{}graphviz}
+        \PY{c+c1}{\PYZsh{}to surpress the scikit learn warnings}
+        \PY{k}{def} \PY{n+nf}{warn}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+            \PY{k}{pass}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{warn} \PY{o}{=} \PY{n}{warn}
+        \PY{c+c1}{\PYZsh{} One\PYZhy{}time install and activation of improved PDF}
+        \PY{c+c1}{\PYZsh{} export template}
+        \PY{k+kn}{import} \PY{n+nn}{template\PYZus{}install}
+\end{Verbatim}
+
+
+    \hypertarget{analysis-of-the-problem}{%
+\subsection{Analysis of the problem}\label{analysis-of-the-problem}}
+
+    The current scale used by to measure the severity of a tropical cyclone
+or a hurricane that is used by the National Hurricane Center(NHC) is
+called the \emph{Saffir-Simpson Hurricane Wind Scale}. It was developed
+in the early 1970's by Herbert Saffir and is strictly a wind
+scale.{[}3{]} The scale categorizes the severity of a hurricane on a
+scale of 1 to 5 with 1 meaning minor damage and 5 being life
+threatening. The post-storm analysis conducted by the National Hurricane
+Center (NHC) contains each tropical cyclone in the Atlantic basis which
+comprises of the North Atlantic Ocean, the Gulf of Mexico, and the
+Caribbean Sea and the North Pacific Ocean. The dataset consists of
+snapshots of a given hurricane from 1851-2014 over intervals of time
+during its entire lifespan. The dataset does not have a prelabeled
+Category Column. The purpose of this project is to build a
+classification model that accurately categorizes the hurricanes strength
+and to find other variables that may play a role in determining the
+severity of a hurricane.
+
+    \hypertarget{model-design-and-solution}{%
+\subsection{Model design and solution}\label{model-design-and-solution}}
+
+    The file named \texttt{atlantic.csv} can be downloaded from
+https://www.kaggle.com/noaa/hurricane-database.
+
+    Once downloaded, the \texttt{pandas} library is used to read the data
+and to preprocess before classification. Before making any changes, we
+look at the raw dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{read\PYZus{}atlantic} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{atlantic.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{read\PYZus{}atlantic}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}          ID                 Name      Date  Time Event Status Latitude  \textbackslash{}
+        0  AL011851              UNNAMED  18510625     0           HU    28.0N   
+        1  AL011851              UNNAMED  18510625   600           HU    28.0N   
+        2  AL011851              UNNAMED  18510625  1200           HU    28.0N   
+        3  AL011851              UNNAMED  18510625  1800           HU    28.1N   
+        4  AL011851              UNNAMED  18510625  2100     L     HU    28.2N   
+        
+          Longitude  Maximum Wind  Minimum Pressure      {\ldots}       Low Wind SW  \textbackslash{}
+        0     94.8W            80              -999      {\ldots}              -999   
+        1     95.4W            80              -999      {\ldots}              -999   
+        2     96.0W            80              -999      {\ldots}              -999   
+        3     96.5W            80              -999      {\ldots}              -999   
+        4     96.8W            80              -999      {\ldots}              -999   
+        
+           Low Wind NW  Moderate Wind NE  Moderate Wind SE  Moderate Wind SW  \textbackslash{}
+        0         -999              -999              -999              -999   
+        1         -999              -999              -999              -999   
+        2         -999              -999              -999              -999   
+        3         -999              -999              -999              -999   
+        4         -999              -999              -999              -999   
+        
+           Moderate Wind NW  High Wind NE  High Wind SE  High Wind SW  High Wind NW  
+        0              -999          -999          -999          -999          -999  
+        1              -999          -999          -999          -999          -999  
+        2              -999          -999          -999          -999          -999  
+        3              -999          -999          -999          -999          -999  
+        4              -999          -999          -999          -999          -999  
+        
+        [5 rows x 22 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{read\PYZus{}atlantic}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (49105, 22)
+\end{Verbatim}
+            
+    There are a total of 49105 rows and 22 columns in this dataframe. The
+location and behavior of a given hurricane or tropical storm is stored
+in multiple rows. The rows with missing values are given a value of -999
+as a placeholder. The first two columns consist of the Name and ID of a
+given hurricane. There other rows are as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Date} - Stored in the format YYYYMMDD, it is the date
+  corresponding to the occurrence of the hurricane or tropical
+  storm.{[}2{]}
+\item
+  \textbf{Time} - The time (hours) in UTC (Universal Time Coordinate).
+  Each row captures the behavior of the hurricane at a given time
+  interval. {[}2{]}
+\item
+  \textbf{Event} - \texttt{C} means that the tropical cyclone approaches
+  the coast but does not make landfall, \texttt{L} indicates landfall,
+  \texttt{I} indicates peak intensity for both pressure and wind,
+  \texttt{G} indicates the genesis or beginning of the tropical cyclone,
+  \texttt{P} indicates a minimum central pressure, a row marked with
+  \texttt{R} provides with additional detail on the intenstiy during
+  rapid changes, \texttt{S} indicates a change in the status of the
+  system, a row marked with \texttt{T} provides additional detail on the
+  position of the cyclone, and \texttt{W} indicates the row containing
+  the maximum sustained wind speed of the cyclone. {[}2{]}
+\item
+  \textbf{Status} - A \texttt{TD} indicates a tropical depression
+  (\textless{} 34 knots), a \texttt{TS} indicates a tropical storm
+  (34-63 knots), \texttt{HU} indicates a hurricane ( \textgreater{} 64
+  knots), \texttt{EX} indicates a Extratropical cyclone, \texttt{SD}
+  indicates a subtropical depression ( \textless{} 34 knots),
+  \texttt{SS} indicates a subtropical storm ( \textgreater{} 34 knots),
+  \texttt{LO} indicates something that can neither be characterized as a
+  tropical cyclone, a subtropical cyclone, or an extratropical cyclone,
+  \texttt{WV} indicates a tropical wave of any intensity, \texttt{DB}
+  indicates a disturbance. {[}2{]}
+\item
+  \textbf{Latitude} - The Latitude of the tropical cyclone at the given
+  time.{[}2{]}
+\item
+  \textbf{Longitude} - The longitude of the tropical cyclone at the
+  given time. {[}2{]}
+\item
+  \textbf{Maximum Wind} - It is defined as the maximum 1-min average
+  wind associated with the tropical cyclone at an elevation of 10 m with
+  an unobstructed exposure. It is measured in knots. {[}2{]}
+\item
+  \textbf{Minimum Pressure} - The minimum pressure of the tropical
+  cyclone at a given time measured in millibars. {[}2{]}
+\item
+  \textbf{Low Wind NE} - Maximum extent of 34 knots wind radii in the
+  northeastern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Low Wind SE} - Maximum extent of 34 knots wind radii in the
+  southeastern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Low Wind SW} - Maximum extent of 34 knots wind radii in the
+  southwestern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Low Wind NW} - Maximum extent of 34 knots wind radii in the
+  northwestern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Moderate Wind NE} - Maximum extent of 50 knots wind radii in
+  the northeastern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Moderate Wind SE} - Maximum extent of 50 knots wind radii in
+  the southeastern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Moderate Wind SW} - Maximum extent of 50 knots wind radii in
+  the southwestern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{Moderate Wind NW} - Maximum extent of 50 knots wind radii in
+  the northwestern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{High Wind NE} - Maximum extent of 64 knots wind radii in the
+  northeastern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{High Wind SE} - Maximum extent of 64 knots wind radii in the
+  southeastern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{High Wind SW} - Maximum extent of 64 knots wind radii in the
+  southwestern quadrant (in nautical miles){[}2{]}
+\item
+  \textbf{High Wind NW} - Maximum extent of 64 knots wind radii in the
+  northwestern quadrant (in nautical miles){[}2{]}
+\end{enumerate}
+
+More information about these variables can be obtained from the file
+named \texttt{atlantic.pdf} from
+https://www.kaggle.com/noaa/hurricane-database.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Making a copy of the original dataframe so that changes made to the copy }
+        \PY{c+c1}{\PYZsh{}will not affect the original dataframe}
+        \PY{n}{atlantic} \PY{o}{=} \PY{n}{read\PYZus{}atlantic}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+     A new category column will now be created to aid in building the
+prediction model. The \emph{Saffir-Simpson Hurrican Wind Scale} ,that is
+used by the NHC, will be used and it computes the Category based on the
+maximum Sustained Winds (measured in knots). As per the National Oceanic
+and Atmospheric Administration (NOAA)
+https://www.nhc.noaa.gov/aboutsshws.php, the Category classification is
+as follows: Category 1: 64 - 82 knots Category 2: 83 - 95 knots Category
+3: 96 - 112 knots Category 4: 113 - 136 knots Category 5:
+\textgreater{}137 knots 
+
+    This classification will be used to create the new \texttt{Category}
+column in the dataframe whose value depends on the
+\texttt{Maximum\ Wind} column.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{mode}\PY{o}{.}\PY{n}{chained\PYZus{}assignment} \PY{o}{=} \PY{k+kc}{None}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}category}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{64}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{82}\PY{p}{)}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{83}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{95}\PY{p}{)}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{96}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{112}\PY{p}{)}\PY{p}{,} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+            \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{113}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{136}\PY{p}{)}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{136}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{df}
+        
+        \PY{n}{atlantic} \PY{o}{=} \PY{n}{add\PYZus{}category}\PY{p}{(}\PY{n}{atlantic}\PY{p}{)}
+\end{Verbatim}
+
+
+     The \texttt{-999} values were used as a placeholder for missing values.
+The presence of these values in the dataframe, however, interfere with
+the model calculations and so they are replaced with a \texttt{Null} or
+\texttt{NaN} value. There also seems to be some whitespace in the
+columns with a string datatype which makes it hard to query these
+columns. Therefore, the whitespace is removed.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{clean\PYZus{}df}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}Replace \PYZhy{}999 with np.nan }
+            \PY{n}{df\PYZus{}filtered} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{999}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}Removing whitespace}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Event}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Event}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{df\PYZus{}filtered}
+        
+        \PY{n}{atlantic\PYZus{}filtered} \PY{o}{=} \PY{n}{clean\PYZus{}df}\PY{p}{(}\PY{n}{atlantic}\PY{p}{)}
+        \PY{n}{atlantic\PYZus{}filtered}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}          ID     Name      Date  Time Event Status Latitude Longitude  \textbackslash{}
+        0  AL011851  UNNAMED  18510625     0           HU    28.0N     94.8W   
+        1  AL011851  UNNAMED  18510625   600           HU    28.0N     95.4W   
+        2  AL011851  UNNAMED  18510625  1200           HU    28.0N     96.0W   
+        3  AL011851  UNNAMED  18510625  1800           HU    28.1N     96.5W   
+        4  AL011851  UNNAMED  18510625  2100     L     HU    28.2N     96.8W   
+        
+           Maximum Wind  Minimum Pressure    {\ldots}     Low Wind NW  Moderate Wind NE  \textbackslash{}
+        0            80               NaN    {\ldots}             NaN               NaN   
+        1            80               NaN    {\ldots}             NaN               NaN   
+        2            80               NaN    {\ldots}             NaN               NaN   
+        3            80               NaN    {\ldots}             NaN               NaN   
+        4            80               NaN    {\ldots}             NaN               NaN   
+        
+           Moderate Wind SE  Moderate Wind SW  Moderate Wind NW  High Wind NE  \textbackslash{}
+        0               NaN               NaN               NaN           NaN   
+        1               NaN               NaN               NaN           NaN   
+        2               NaN               NaN               NaN           NaN   
+        3               NaN               NaN               NaN           NaN   
+        4               NaN               NaN               NaN           NaN   
+        
+           High Wind SE  High Wind SW  High Wind NW  Category  
+        0           NaN           NaN           NaN         1  
+        1           NaN           NaN           NaN         1  
+        2           NaN           NaN           NaN         1  
+        3           NaN           NaN           NaN         1  
+        4           NaN           NaN           NaN         1  
+        
+        [5 rows x 23 columns]
+\end{Verbatim}
+            
+    The new column ``Category'' is added to the dataframe and is true to the
+Saffi Hurricane Wind Scale. The -999 values have been replaced with Null
+values for easier computation, whitespace was removed from the columns
+with datatype string.
+
+    It was hypothesized that the total duration or lifetime of a tropical
+cyclone may affect its Category because Category essentially is a
+variable that accounts for the strength of a tropical cyclone. There are
+two time related columns, one being \texttt{Date} and the other being
+\texttt{Time}. The goal is to compute the total lifetime of a given
+cyclone in hours. In order to do that the \texttt{Date} and
+\texttt{Time} columns are combined and the dataset is grouped by the
+Cyclone \texttt{ID}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{date\PYZus{}time}\PY{p}{(}\PY{n}{df\PYZus{}filtered}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}Converting Time and Date columns to strings}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{zfill}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{df\PYZus{}filtered}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}combining the Date and Time column}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DateTime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}changing the datatype of this column to pandas Datetime}
+            \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DateTime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DateTime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                                     \PY{n+nb}{format} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{H}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{df\PYZus{}filtered}
+        
+        \PY{n}{atlantic\PYZus{}filtered} \PY{o}{=} \PY{n}{date\PYZus{}time}\PY{p}{(}\PY{n}{atlantic\PYZus{}filtered}\PY{p}{)}
+        \PY{n}{atlantic\PYZus{}filtered}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}          ID     Name      Date  Time Event Status Latitude Longitude  \textbackslash{}
+        0  AL011851  UNNAMED  18510625  0000           HU    28.0N     94.8W   
+        1  AL011851  UNNAMED  18510625  0600           HU    28.0N     95.4W   
+        2  AL011851  UNNAMED  18510625  1200           HU    28.0N     96.0W   
+        3  AL011851  UNNAMED  18510625  1800           HU    28.1N     96.5W   
+        4  AL011851  UNNAMED  18510625  2100     L     HU    28.2N     96.8W   
+        
+           Maximum Wind  Minimum Pressure         {\ldots}          Moderate Wind NE  \textbackslash{}
+        0            80               NaN         {\ldots}                       NaN   
+        1            80               NaN         {\ldots}                       NaN   
+        2            80               NaN         {\ldots}                       NaN   
+        3            80               NaN         {\ldots}                       NaN   
+        4            80               NaN         {\ldots}                       NaN   
+        
+           Moderate Wind SE  Moderate Wind SW  Moderate Wind NW  High Wind NE  \textbackslash{}
+        0               NaN               NaN               NaN           NaN   
+        1               NaN               NaN               NaN           NaN   
+        2               NaN               NaN               NaN           NaN   
+        3               NaN               NaN               NaN           NaN   
+        4               NaN               NaN               NaN           NaN   
+        
+           High Wind SE  High Wind SW  High Wind NW  Category            DateTime  
+        0           NaN           NaN           NaN         1 1851-06-25 00:00:00  
+        1           NaN           NaN           NaN         1 1851-06-25 06:00:00  
+        2           NaN           NaN           NaN         1 1851-06-25 12:00:00  
+        3           NaN           NaN           NaN         1 1851-06-25 18:00:00  
+        4           NaN           NaN           NaN         1 1851-06-25 21:00:00  
+        
+        [5 rows x 24 columns]
+\end{Verbatim}
+            
+    After grouping the columns together, the difference in the
+\texttt{DateTime} between the last row and the first row of a hurricane
+is calculated.This difference is stored in a variable called
+\texttt{duration} and the \texttt{Lifetime} of a hurricane is then
+computed in hours.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{lifetime\PYZus{}hours}\PY{p}{(}\PY{n}{df\PYZus{}filtered}\PY{p}{)}\PY{p}{:}    
+            \PY{c+c1}{\PYZsh{}group hurricanes by ID}
+            \PY{n}{hurricanes\PYZus{}grouped} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DateTime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{duration} \PY{o}{=} \PY{n}{hurricanes\PYZus{}grouped}\PY{o}{.}\PY{n}{last}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{hurricanes\PYZus{}grouped}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}
+            \PY{n}{duration} \PY{o}{=} \PY{n}{duration}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+            \PY{n}{duration}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lifetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}Converting duration from days to hours}
+            \PY{n}{duration}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lifetime\PYZus{}hours}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{duration}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lifetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{timedelta64}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{h}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}setting ID as index to join this with the original df}
+            
+            \PY{k}{return} \PY{n}{duration}
+        
+        \PY{n}{duration} \PY{o}{=} \PY{n}{lifetime\PYZus{}hours}\PY{p}{(}\PY{n}{atlantic\PYZus{}filtered}\PY{p}{)}
+        \PY{n}{duration}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{duration}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}          ID         Lifetime  Lifetime\_hours
+        0  AL011851  3 days 00:00:00            72.0
+        1  AL011852 11 days 00:00:00           264.0
+        2  AL011853  0 days 00:00:00             0.0
+        3  AL011854  2 days 12:00:00            60.0
+        4  AL011855  0 days 00:00:00             0.0
+\end{Verbatim}
+            
+    Now that the lifetime in hours has been computed, the \texttt{duration}
+dataframe is merged with the \texttt{atlantic\_filtered} dataframe to
+form the \texttt{final\_atlantic} dataframe.The head of the new
+\texttt{final\_atlantic} dataframe is printed below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{merge\PYZus{}dataframes}\PY{p}{(}\PY{n}{df\PYZus{}filtered}\PY{p}{,} \PY{n}{time\PYZus{}df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{final\PYZus{}merged} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}filtered}\PY{p}{,}\PY{n}{time\PYZus{}df}\PY{p}{,}\PY{n}{on} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{final\PYZus{}merged}
+        
+        \PY{n}{final\PYZus{}atlantic} \PY{o}{=} \PY{n}{merge\PYZus{}dataframes}\PY{p}{(}\PY{n}{atlantic\PYZus{}filtered}\PY{p}{,}\PY{n}{duration}\PY{p}{)}
+        \PY{n}{final\PYZus{}atlantic}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}          ID     Name      Date  Time Event Status Latitude Longitude  \textbackslash{}
+        0  AL011851  UNNAMED  18510625  0000           HU    28.0N     94.8W   
+        1  AL011851  UNNAMED  18510625  0600           HU    28.0N     95.4W   
+        2  AL011851  UNNAMED  18510625  1200           HU    28.0N     96.0W   
+        3  AL011851  UNNAMED  18510625  1800           HU    28.1N     96.5W   
+        4  AL011851  UNNAMED  18510625  2100     L     HU    28.2N     96.8W   
+        
+           Maximum Wind  Minimum Pressure       {\ldots}        Moderate Wind SW  \textbackslash{}
+        0            80               NaN       {\ldots}                     NaN   
+        1            80               NaN       {\ldots}                     NaN   
+        2            80               NaN       {\ldots}                     NaN   
+        3            80               NaN       {\ldots}                     NaN   
+        4            80               NaN       {\ldots}                     NaN   
+        
+           Moderate Wind NW  High Wind NE  High Wind SE  High Wind SW  High Wind NW  \textbackslash{}
+        0               NaN           NaN           NaN           NaN           NaN   
+        1               NaN           NaN           NaN           NaN           NaN   
+        2               NaN           NaN           NaN           NaN           NaN   
+        3               NaN           NaN           NaN           NaN           NaN   
+        4               NaN           NaN           NaN           NaN           NaN   
+        
+           Category            DateTime  Lifetime  Lifetime\_hours  
+        0         1 1851-06-25 00:00:00    3 days            72.0  
+        1         1 1851-06-25 06:00:00    3 days            72.0  
+        2         1 1851-06-25 12:00:00    3 days            72.0  
+        3         1 1851-06-25 18:00:00    3 days            72.0  
+        4         1 1851-06-25 21:00:00    3 days            72.0  
+        
+        [5 rows x 26 columns]
+\end{Verbatim}
+            
+    The \texttt{final\_atlantic} dataframe consists of all of the tropical
+cyclone events in the atlantic. In order to make a comparison between
+all tropical events and only hurricanes, a new dataframe called
+\texttt{hurricanes} is made which consists of only rows whose
+\texttt{Status} is marked as \texttt{HU} indicating Hurricane.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{hurricanes} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{final\PYZus{}atlantic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HU}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{hurricanes} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maximum Wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minimum Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lifetime\PYZus{}hours}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    To build a classification model, we used the \texttt{sci-kit\ learn}
+package. The \texttt{sci-kit\ learn} package does not allow for the
+presence of Null values for analysis so the Null values are replaced
+with the mean of the respective column.
+
+ Two variables called \texttt{labels} and \texttt{features} are also
+defined. \texttt{labels} is the prelabeled \texttt{Category} of the
+dataset and \texttt{features} is the variables that will be used to
+train and predict the labels. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{labels} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{features} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}selecting only columns that will be useful in the classification process}
+         \PY{n}{features} \PY{o}{=} \PY{n}{features}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maximum Wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minimum Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lifetime\PYZus{}hours}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}replacing na values with the average of the column}
+         \PY{n}{features}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{features}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    Maximum Wind  Minimum Pressure  Low Wind NE  Low Wind SE  Low Wind SW  \textbackslash{}
+         0            80         992.24425    81.865394    76.518325    48.647188   
+         1            80         992.24425    81.865394    76.518325    48.647188   
+         2            80         992.24425    81.865394    76.518325    48.647188   
+         3            80         992.24425    81.865394    76.518325    48.647188   
+         4            80         992.24425    81.865394    76.518325    48.647188   
+         
+            Low Wind NW  Moderate Wind NE  Moderate Wind SE  Moderate Wind SW  \textbackslash{}
+         0    59.156393         24.641952         23.029894         15.427293   
+         1    59.156393         24.641952         23.029894         15.427293   
+         2    59.156393         24.641952         23.029894         15.427293   
+         3    59.156393         24.641952         23.029894         15.427293   
+         4    59.156393         24.641952         23.029894         15.427293   
+         
+            Moderate Wind NW  High Wind NE  High Wind SE  High Wind SW  High Wind NW  \textbackslash{}
+         0         18.403141      8.110117       7.35771       5.13089      6.269211   
+         1         18.403141      8.110117       7.35771       5.13089      6.269211   
+         2         18.403141      8.110117       7.35771       5.13089      6.269211   
+         3         18.403141      8.110117       7.35771       5.13089      6.269211   
+         4         18.403141      8.110117       7.35771       5.13089      6.269211   
+         
+            Lifetime\_hours  
+         0            72.0  
+         1            72.0  
+         2            72.0  
+         3            72.0  
+         4            72.0  
+\end{Verbatim}
+            
+    The classification model is being built using a
+\texttt{Random\ Forest\ Classifier}. A
+\texttt{Random\ Forest\ classifier} is robust process that randomizes
+the feature selection process at each tree split which prevents
+overfitting.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}defining the names of the features and labels}
+         \PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maximum Wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minimum Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lifetime\PYZus{}hours}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{labels\PYZus{}columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Category}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}splitting the test into a training and a test set}
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{n}{feature\PYZus{}columns}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                                                             \PY{n}{labels} \PY{p}{,}\PYZbs{}
+                                                             \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{,} 
+                                                             \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    The function below will be used to build the Random Forest
+Classification Model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{model\PYZus{}prediction}\PY{p}{(}\PY{n}{rf}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{feature\PYZus{}columns}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Build a Random Forest Classification Model.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    :param rf: Initialized RandomForestClassifier with necessary parameters}
+         \PY{l+s+sd}{    :param x\PYZus{}train: The data set being used to train}
+         \PY{l+s+sd}{    :param x\PYZus{}test: The data set on which the model will be tested}
+         \PY{l+s+sd}{    :param y\PYZus{}train: The labels data being used to train}
+         \PY{l+s+sd}{     :param y\PYZus{}test: The labels data that contains the true labels}
+         \PY{l+s+sd}{    :param labels: The column that contains all true labels}
+         \PY{l+s+sd}{    :param feature\PYZus{}columns: The features being used for modeling}
+         \PY{l+s+sd}{    :returns: confusion matrix, accuracy and error rate, }
+         \PY{l+s+sd}{    classification report, important features,predicted values}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{predictions} \PY{o}{=} \PY{n}{rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+             \PY{n}{actual\PYZus{}predicted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{predictions}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{actual\PYZus{}predicted}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Actual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labels}
+             \PY{n}{conf\PYZus{}matrix} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{,}\PY{n}{rownames}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{True}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{colnames}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{accuracy\PYZus{}rate} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+             \PY{n}{base\PYZus{}error\PYZus{}rate} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{accuracy\PYZus{}rate}
+             \PY{n}{rf\PYZus{}report} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}
+             \PY{n}{model\PYZus{}features} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{rf}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{,} 
+                                                   \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Importance of Features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                                   \PY{n}{index}\PY{o}{=}\PY{n}{feature\PYZus{}columns}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{predictions}\PY{p}{,} \PY{n}{actual\PYZus{}predicted}\PY{p}{,} \PY{n}{accuracy\PYZus{}rate}\PY{p}{,} \PY{n}{base\PYZus{}error\PYZus{}rate}\PY{p}{,} \PY{n}{rf\PYZus{}report}\PY{p}{,} \PY{n}{model\PYZus{}features}\PY{p}{,} \PY{n}{conf\PYZus{}matrix}
+\end{Verbatim}
+
+
+    The base random forest model will look at the performance of the
+classification model with all of the variables. Based on the
+\emph{feature importance}, only the important variables will then be
+considered.
+
+    \hypertarget{base-classification-model}{%
+\subsubsection{Base Classification
+Model}\label{base-classification-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}initializing a random forest classifier}
+         \PY{n}{base\PYZus{}rf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} 
+                                          \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{base\PYZus{}model} \PY{o}{=} \PY{n}{model\PYZus{}prediction}\PY{p}{(}\PY{n}{rf} \PY{o}{=} \PY{n}{base\PYZus{}rf}\PY{p}{,} \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{p}{,} 
+                          \PY{n}{y\PYZus{}train} \PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} 
+                                       \PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{n}{feature\PYZus{}columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}predict testing data}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{base\PYZus{}actual\PYZus{}predicted} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}Compute the confusion matrix to see how accurately the model is prediciting}
+         \PY{n}{base\PYZus{}conf\PYZus{}matrix} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{base\PYZus{}accuracy} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{base\PYZus{}error\PYZus{}rate} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accuracy for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{base\PYZus{}accuracy}\PY{p}{,} 
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The error rate for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{base\PYZus{}error\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy for a base Random Forest Classifier is: 0.9622970850061092 
+The error rate for a base Random Forest Classifier is: 0.03770291499389078
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{base\PYZus{}rf\PYZus{}report} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{Initial\PYZus{}model\PYZus{}features} \PY{o}{=} \PY{n}{base\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{Initial\PYZus{}model\PYZus{}features}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}                   Importance of Features
+         Maximum Wind                    0.693561
+         Minimum Pressure                0.154915
+         Low Wind NE                     0.000953
+         Low Wind SE                     0.001308
+         Low Wind SW                     0.003998
+         Low Wind NW                     0.001171
+         Moderate Wind NE                0.002932
+         Moderate Wind SE                0.006990
+         Moderate Wind SW                0.007534
+         Moderate Wind NW                0.004503
+         High Wind NE                    0.024530
+         High Wind SE                    0.025848
+         High Wind SW                    0.012430
+         High Wind NW                    0.012925
+         Lifetime\_hours                  0.046403
+\end{Verbatim}
+            
+    There appear to be some variables that don't contribute to the overall
+\texttt{Category} of the Tropical Cyclone. The variables with
+significantly low coefficients values are removed to see if that
+improves the accuracy of the model.
+
+    \hypertarget{new-classification-model-with-important-features}{%
+\subsubsection{New Classification Model with important
+features}\label{new-classification-model-with-important-features}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}New Random Forest with important variables}
+         \PY{n}{rf\PYZus{}new} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                                         \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{new\PYZus{}feature\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minimum Pressure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lifetime\PYZus{}hours}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind SE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind NE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind NW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}new training and testing set}
+         \PY{n}{x\PYZus{}train\PYZus{}new}\PY{p}{,} \PY{n}{x\PYZus{}test\PYZus{}new}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}new}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}new} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}
+                                                 \PY{n}{features}\PY{p}{[}\PY{n}{new\PYZus{}feature\PYZus{}columns}\PY{p}{]}\PY{p}{,}
+                                                             \PY{n}{labels} \PY{p}{,}
+                                                             \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{,} 
+                                                     \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{new\PYZus{}model} \PY{o}{=} \PY{n}{model\PYZus{}prediction}\PY{p}{(}\PY{n}{rf} \PY{o}{=} \PY{n}{rf\PYZus{}new}\PY{p}{,} \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train\PYZus{}new}\PY{p}{,} \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test\PYZus{}new}\PY{p}{,} 
+                          \PY{n}{y\PYZus{}train} \PY{o}{=}\PY{n}{y\PYZus{}train\PYZus{}new}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}new}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} 
+                                      \PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{n}{new\PYZus{}feature\PYZus{}columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{new\PYZus{}predictions} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{new\PYZus{}actual\PYZus{}predicted} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{new\PYZus{}conf\PYZus{}matrix} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{new\PYZus{}accuracy} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{new\PYZus{}error\PYZus{}rate} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accuracy for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{new\PYZus{}accuracy}\PY{p}{,} 
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The error rate for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{new\PYZus{}error\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy for a base Random Forest Classifier is: 0.9710827951358585 
+The error rate for a base Random Forest Classifier is: 0.02891720486414151
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{new\PYZus{}rf\PYZus{}report} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{new\PYZus{}model} \PY{o}{=} \PY{n}{new\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{new\PYZus{}model}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}                   Importance of Features
+         Maximum Wind                    0.815537
+         Minimum Pressure                0.117750
+         Lifetime\_hours                  0.029516
+         High Wind SE                    0.014068
+         High Wind NE                    0.018702
+         High Wind NW                    0.004427
+\end{Verbatim}
+            
+    The importance of the Maximum Wind column increased very significantly.
+Maximum Pressure seems to be the second most important variable but its
+importance is significantly less than Maximum Wind.
+
+    \hypertarget{classification-model-with-the-variable-maximum-wind-removed}{%
+\subsubsection{\texorpdfstring{Classification Model with the variable
+\texttt{Maximum\ Wind}
+removed}{Classification Model with the variable Maximum Wind removed}}\label{classification-model-with-the-variable-maximum-wind-removed}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}New Random Forest with important variables}
+         \PY{n}{rf\PYZus{}nw} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                                         \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{nw\PYZus{}feature\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minimum Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moderate Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Wind NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lifetime\PYZus{}hours}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}new training and testing set}
+         \PY{n}{x\PYZus{}train\PYZus{}nw}\PY{p}{,} \PY{n}{x\PYZus{}test\PYZus{}nw}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}nw}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}nw} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}
+                                                 \PY{n}{features}\PY{p}{[}\PY{n}{nw\PYZus{}feature\PYZus{}cols}\PY{p}{]}\PY{p}{,}
+                                                             \PY{n}{labels} \PY{p}{,}
+                                                             \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{,} 
+                                                     \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{nw\PYZus{}model} \PY{o}{=} \PY{n}{model\PYZus{}prediction}\PY{p}{(}\PY{n}{rf} \PY{o}{=} \PY{n}{rf\PYZus{}nw}\PY{p}{,} \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train\PYZus{}nw}\PY{p}{,} \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test\PYZus{}nw}\PY{p}{,} 
+                          \PY{n}{y\PYZus{}train} \PY{o}{=}\PY{n}{y\PYZus{}train\PYZus{}nw}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}nw}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} 
+                                     \PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{n}{nw\PYZus{}feature\PYZus{}cols}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{nw\PYZus{}predictions} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{nw\PYZus{}actual\PYZus{}predicted} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{nw\PYZus{}conf\PYZus{}matrix} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{nw\PYZus{}accuracy} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{nw\PYZus{}error\PYZus{}rate} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accuracy for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{nw\PYZus{}accuracy}\PY{p}{,} 
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The error rate for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{nw\PYZus{}error\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy for a base Random Forest Classifier is: 0.7355559434456275 
+The error rate for a base Random Forest Classifier is: 0.26444405655437253
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{nw\PYZus{}rf\PYZus{}report} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{nw\PYZus{}model} \PY{o}{=} \PY{n}{nw\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{nw\PYZus{}model}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}                   Importance of Features
+         Minimum Pressure                0.498321
+         Low Wind NE                     0.003320
+         Low Wind SE                     0.006308
+         Low Wind SW                     0.005551
+         Low Wind NW                     0.003569
+         Moderate Wind NE                0.019601
+         Moderate Wind SE                0.018154
+         Moderate Wind SW                0.018701
+         Moderate Wind NW                0.028788
+         High Wind NE                    0.088450
+         High Wind SE                    0.080559
+         High Wind SW                    0.038133
+         High Wind NW                    0.044297
+         Lifetime\_hours                  0.146248
+\end{Verbatim}
+            
+    \hypertarget{classification-model-consisting-of-only-hurricanes-labelled-as-hu}{%
+\subsubsection{\texorpdfstring{Classification Model consisting of only
+Hurricanes labelled as
+\texttt{HU}}{Classification Model consisting of only Hurricanes labelled as HU}}\label{classification-model-consisting-of-only-hurricanes-labelled-as-hu}}
+
+    The dataframe called \texttt{hurricanes} consists of only the rows that
+are classified as hurricanes. We will build a classification model with
+this dataframe using the same parameters as above to see if there is a
+difference between the two models.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{}replacing null values with the mean of the column}
+         \PY{n}{hurricanes}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{hurricanes}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{}new training and testing set}
+         \PY{n}{x\PYZus{}train\PYZus{}hu}\PY{p}{,} \PY{n}{x\PYZus{}test\PYZus{}hu}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}hu}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}hu} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}
+                                             \PY{n}{hurricanes}\PY{p}{[}\PY{n}{feature\PYZus{}columns}\PY{p}{]}\PY{p}{,}
+                                                             \PY{n}{labels} \PY{p}{,}
+                                                             \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{,} 
+                                                     \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{hu\PYZus{}model} \PY{o}{=} \PY{n}{model\PYZus{}prediction}\PY{p}{(}\PY{n}{rf} \PY{o}{=} \PY{n}{base\PYZus{}rf}\PY{p}{,} \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train\PYZus{}hu}\PY{p}{,} \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test\PYZus{}hu}\PY{p}{,} 
+                          \PY{n}{y\PYZus{}train} \PY{o}{=}\PY{n}{y\PYZus{}train\PYZus{}hu}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}hu}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} \PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{n}{feature\PYZus{}columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{hu\PYZus{}predictions} \PY{o}{=} \PY{n}{hu\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{hu\PYZus{}actual\PYZus{}predicted} \PY{o}{=} \PY{n}{hu\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{hu\PYZus{}conf\PYZus{}matrix} \PY{o}{=} \PY{n}{hu\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{hu\PYZus{}accuracy} \PY{o}{=} \PY{n}{hu\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{hu\PYZus{}error\PYZus{}rate} \PY{o}{=} \PY{n}{hu\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accuracy for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hu\PYZus{}accuracy}\PY{p}{,} 
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The error rate for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hu\PYZus{}error\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy for a base Random Forest Classifier is: 0.9622970850061092 
+The error rate for a base Random Forest Classifier is: 0.03770291499389078
+
+    \end{Verbatim}
+
+    There appears to be no difference in the accuracy between the two
+models.
+
+    \hypertarget{results-and-conclusion}{%
+\subsection{Results and Conclusion}\label{results-and-conclusion}}
+
+    \hypertarget{hyperparameter-testing}{%
+\subsubsection{Hyperparameter Testing}\label{hyperparameter-testing}}
+
+    Although a Random Forest Classifier is robust and prevents overfitting,
+a good way to significantly improve model performance is set the right
+parameters when initializing the classification model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}initializing a random forest classifier with default values}
+         \PY{n}{rf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{}new training and testing set}
+         \PY{n}{x\PYZus{}train\PYZus{}best}\PY{p}{,} \PY{n}{x\PYZus{}test\PYZus{}best}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}best}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}best} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}
+                                             \PY{n}{features}\PY{p}{[}\PY{n}{feature\PYZus{}columns}\PY{p}{]}\PY{p}{,}
+                                                             \PY{n}{labels} \PY{p}{,}
+                                                             \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{,} 
+                                                     \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{rf}\PY{o}{.}\PY{n}{get\PYZus{}params}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} <bound method BaseEstimator.get\_params of RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+                     max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                     min\_samples\_leaf=1, min\_samples\_split=2,
+                     min\_weight\_fraction\_leaf=0.0, n\_estimators='warn', n\_jobs=None,
+                     oob\_score=False, random\_state=10, verbose=0, warm\_start=False)>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{}number of decision trees}
+         \PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{start} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{stop} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}number of features to be considered at each split}
+         \PY{n}{max\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}maximum depth of the trees}
+         \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Method of selecting samples for training each tree}
+         \PY{n}{bootstrap} \PY{o}{=} \PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]}
+         
+         \PY{n}{random\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{n\PYZus{}estimators}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{max\PYZus{}features}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{max\PYZus{}depth}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bootstrap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{bootstrap}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{o}{\PYZpc{}\PYZpc{}capture}
+         \PY{c+c1}{\PYZsh{}used capture to surpress output of the randomized grid search}
+         \PY{k}{def} \PY{n+nf}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{rf}\PY{p}{,} \PY{n}{random\PYZus{}grid}\PY{p}{,} \PY{n}{no\PYZus{}iter}\PY{p}{,} \PY{n}{cv}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{rf\PYZus{}grid\PYZus{}search} \PY{o}{=} \PY{n}{RandomizedSearchCV}\PY{p}{(}\PY{n}{rf}\PY{p}{,} 
+                                                 \PY{n}{param\PYZus{}distributions} \PY{o}{=} \PY{n}{random\PYZus{}grid}\PY{p}{,} 
+                                                 \PY{n}{n\PYZus{}iter} \PY{o}{=} \PY{n}{no\PYZus{}iter}\PY{p}{,} 
+                                                 \PY{n}{cv} \PY{o}{=} \PY{n}{cv}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{rf\PYZus{}grid\PYZus{}search} \PY{o}{=} \PY{n}{rf\PYZus{}grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{rf\PYZus{}grid\PYZus{}search}
+         
+         \PY{n}{rf\PYZus{}grid\PYZus{}search} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{rf} \PY{o}{=} \PY{n}{rf}\PY{p}{,} \PY{n}{random\PYZus{}grid} \PY{o}{=} \PY{n}{random\PYZus{}grid}\PY{p}{,} 
+                                         \PY{n}{no\PYZus{}iter} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} 
+                                         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train\PYZus{}best}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}best}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{rf\PYZus{}grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} \{'n\_estimators': 500,
+          'max\_features': 'auto',
+          'max\_depth': 15,
+          'bootstrap': False\}
+\end{Verbatim}
+            
+    We now perform the random forest classification with the best parameters
+found by Random Grid Search
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{best\PYZus{}params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{15}\PY{p}{,}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bootstrap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{rf\PYZus{}best} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{best\PYZus{}params}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{max\PYZus{}features} \PY{o}{=} \PY{n}{best\PYZus{}params}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{n}{best\PYZus{}params}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{bootstrap} \PY{o}{=} \PY{n}{best\PYZus{}params}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bootstrap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{model\PYZus{}prediction}\PY{p}{(}\PY{n}{rf} \PY{o}{=} \PY{n}{rf\PYZus{}best}\PY{p}{,} \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train\PYZus{}best}\PY{p}{,} 
+                                       \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test\PYZus{}best}\PY{p}{,} 
+                          \PY{n}{y\PYZus{}train} \PY{o}{=}\PY{n}{y\PYZus{}train\PYZus{}best}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}best}\PY{p}{,}
+                                       \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} \PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{n}{feature\PYZus{}columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{best\PYZus{}predictions} \PY{o}{=} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{best\PYZus{}actual\PYZus{}predicted} \PY{o}{=} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{best\PYZus{}conf\PYZus{}matrix} \PY{o}{=} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{best\PYZus{}accuracy} \PY{o}{=} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{best\PYZus{}error\PYZus{}rate} \PY{o}{=} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accuracy for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}accuracy}\PY{p}{,} 
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The error rate for a base Random Forest Classifier is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}error\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy for a base Random Forest Classifier is: 0.9997090824460348 
+The error rate for a base Random Forest Classifier is: 0.0002909175539651532
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{best\PYZus{}rf\PYZus{}report} \PY{o}{=} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}Storing the performance of the model in a dictionary}
+         \PY{n}{performance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+             \PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of estimators}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Depth of Tree}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{5}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{base\PYZus{}accuracy}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Rate}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{base\PYZus{}error\PYZus{}rate}
+             \PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{performance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{new\PYZus{}accuracy}\PY{p}{,} \PY{n}{new\PYZus{}error\PYZus{}rate}\PY{p}{]}
+         \PY{n}{performance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{best\PYZus{}params}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                               \PY{n}{best\PYZus{}params}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                               \PY{n}{best\PYZus{}accuracy}\PY{p}{,} \PY{n}{best\PYZus{}error\PYZus{}rate}\PY{p}{]}
+         \PY{n}{performance}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:}    Number of estimators  Depth of Tree  Accuracy  Error Rate
+         0                 100.0            5.0  0.962297    0.037703
+         1                 100.0            5.0  0.971083    0.028917
+         2                 500.0           15.0  0.999709    0.000291
+\end{Verbatim}
+            
+    On running the Random Grid Search Cross Validation, we obtain the
+parameters that will help minimize the error rate. The number of
+estimators go from 100 used in making the initial models to 300. The
+depth of the tree goes from 5 in the initial models to 15, and the error
+rate significantly decreases.
+
+    \hypertarget{confusion-matrix}{%
+\paragraph{Confusion Matrix}\label{confusion-matrix}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The base confusion matrix with all the variables:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{base\PYZus{}conf\PYZus{}matrix}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The new confusion matrix with important variables:}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{new\PYZus{}conf\PYZus{}matrix}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{All the variables with the best parameters from cross\PYZhy{}validation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                 \PY{n}{best\PYZus{}conf\PYZus{}matrix}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'The base confusion matrix with all the variables:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Predicted      0     1     2    3    4    All
+True                                         
+0          11851     0     0    0    0  11851
+1              0  2958     0    0    0   2958
+2              0     2  1315    0    0   1317
+3             29   388    55  231    6    709
+4              0   117     4   12  184    317
+5              1     9     1    1   23     35
+All        11881  3474  1375  244  213  17187
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The new confusion matrix with important variables:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Predicted      0     1     2    3    4    All
+True                                         
+0          11851     0     0    0    0  11851
+1              0  2958     0    0    0   2958
+2              0     0  1317    0    0   1317
+3              0     0   333  376    0    709
+4              0     0   103   26  188    317
+5              0     0     9    1   25     35
+All        11851  2958  1762  403  213  17187
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'All the variables with the best parameters from cross-validation:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Predicted      0     1     2    3    4   5    All
+True                                             
+0          11851     0     0    0    0   0  11851
+1              0  2958     0    0    0   0   2958
+2              0     0  1316    1    0   0   1317
+3              0     0     0  708    1   0    709
+4              0     0     0    2  315   0    317
+5              0     0     0    0    1  34     35
+All        11851  2958  1316  711  317  34  17187
+    \end{verbatim}
+
+    
+    The \texttt{base\ model} accurately classifies rows belonging to
+Categories 0 and 1. It does a decent job at classifying Categories 2 and
+5 but it doesn't classify Categories 3 and 4 well.
+
+The \texttt{model\ with\ reduced\ features} classifies Categories 0,1,
+and 2 really well. It does a better job than the base model at
+classifying Categories 3, 4, and 5.
+
+The \texttt{best\ parameters\ model} classifies almost all of the
+Categories well. The worst Category it classifies is Category 4 and it's
+only off by 2.
+
+    \hypertarget{classification-report}{%
+\paragraph{Classification Report}\label{classification-report}}
+
+    \textbf{\emph{Accuracy}} is not usually the best measure to determine if
+a classification is a good model. Therefore, the precision, recall, f1
+score, and support for each of the three classification models are
+computed.
+
+ \textbf{Precision}: It is defined as the number of times the model is
+correct in predicting that a row belongs to a category. {[}1{]}
+
+ \textbf{Recall} :It is a measure of how often are the predicted and
+actual category the same.{[}1{]}
+
+ \textbf{F1 Score} : It is defined as the mean of the precision and
+recall.
+
+ \textbf{Support} : This measures the total number of values in the
+dataset that fall under this category. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The base classification report is:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{base\PYZus{}rf\PYZus{}report}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The new classification report is:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{new\PYZus{}rf\PYZus{}report}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best parameters classification report is:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}rf\PYZus{}report}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The base classification report is:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     11851
+           1       0.85      1.00      0.92      2958
+           2       0.96      1.00      0.98      1317
+           3       0.95      0.33      0.48       709
+           4       0.86      0.58      0.69       317
+           5       0.00      0.00      0.00        35
+
+   micro avg       0.96      0.96      0.96     17187
+   macro avg       0.77      0.65      0.68     17187
+weighted avg       0.96      0.96      0.95     17187
+
+The new classification report is:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     11851
+           1       1.00      1.00      1.00      2958
+           2       0.75      1.00      0.86      1317
+           3       0.93      0.53      0.68       709
+           4       0.88      0.59      0.71       317
+           5       0.00      0.00      0.00        35
+
+   micro avg       0.97      0.97      0.97     17187
+   macro avg       0.76      0.69      0.71     17187
+weighted avg       0.97      0.97      0.97     17187
+
+The best parameters classification report is:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     11851
+           1       1.00      1.00      1.00      2958
+           2       1.00      1.00      1.00      1317
+           3       1.00      1.00      1.00       709
+           4       0.99      0.99      0.99       317
+           5       1.00      0.97      0.99        35
+
+   micro avg       1.00      1.00      1.00     17187
+   macro avg       1.00      0.99      1.00     17187
+weighted avg       1.00      1.00      1.00     17187
+
+
+    \end{Verbatim}
+
+    The \emph{precision}, \emph{recall}, and \emph{f1 score} remain the same
+for Category 0 in all three cases. The \emph{precision} increases
+significantly from the base model to the new model and the new model and
+best parameters model have the same precision for Category 1. There is a
+significant decrease in the precision of Category 2 from the base model
+to the new model but the precision increases significantly for the best
+parameters model. The \emph{recall} for Categories 3,4, and 5 is
+significantly low in the base model as well as the new model but they
+significantly increase to almost 100\% in the best parameters model.
+Categories 3 and 4 have relatively lower values for f1 scores and
+Category 5 is 0. This value significantly imporves in the new
+classification model.
+
+    \hypertarget{feature-importance}{%
+\paragraph{Feature Importance}\label{feature-importance}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The coefficients of the base model are}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Initial\PYZus{}model\PYZus{}features}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The reduced coefficients of the new model are}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{new\PYZus{}model}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The model without the variable Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{nw\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'The coefficients of the base model are'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                  Importance of Features
+Maximum Wind                    0.693561
+Minimum Pressure                0.154915
+Low Wind NE                     0.000953
+Low Wind SE                     0.001308
+Low Wind SW                     0.003998
+Low Wind NW                     0.001171
+Moderate Wind NE                0.002932
+Moderate Wind SE                0.006990
+Moderate Wind SW                0.007534
+Moderate Wind NW                0.004503
+High Wind NE                    0.024530
+High Wind SE                    0.025848
+High Wind SW                    0.012430
+High Wind NW                    0.012925
+Lifetime_hours                  0.046403
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The reduced coefficients of the new model are'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                  Importance of Features
+Maximum Wind                    0.815537
+Minimum Pressure                0.117750
+Lifetime_hours                  0.029516
+High Wind SE                    0.014068
+High Wind NE                    0.018702
+High Wind NW                    0.004427
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The model without the variable Maximum Wind'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+                  Importance of Features
+Minimum Pressure                0.498321
+Low Wind NE                     0.003320
+Low Wind SE                     0.006308
+Low Wind SW                     0.005551
+Low Wind NW                     0.003569
+Moderate Wind NE                0.019601
+Moderate Wind SE                0.018154
+Moderate Wind SW                0.018701
+Moderate Wind NW                0.028788
+High Wind NE                    0.088450
+High Wind SE                    0.080559
+High Wind SW                    0.038133
+High Wind NW                    0.044297
+Lifetime_hours                  0.146248
+    \end{verbatim}
+
+    
+    The \texttt{base\ model} shows us that \texttt{Maximum\ Wind} has the
+highest importance in the model followed by \texttt{Minimum\ Pressure},
+and \texttt{Lifetime\_hours}.
+
+The \texttt{model\ with\ reduced\ features} shows us that
+\texttt{Maximum\ Wind} is the most important feature, followed by
+\texttt{Minimum\ Pressure}, \texttt{Lifetime\_hours},
+\texttt{High\ Wind\ SE}, \texttt{High\ Wind\ NE}, and finally,
+\texttt{High\ Wind\ NW}.
+
+The \texttt{model\ with\ Maximum\ Wind\ removed} was used to see if
+removing an important variable, which was dominating the results,would
+give us a better understanding of the other variables. We see that
+\texttt{Maximum\ Pressure} and \texttt{Lifetime\_hours} are important
+features along with \texttt{High\ Wind\ NE} and \texttt{High\ Wind\ SE}.
+Removing the \texttt{Maximum\ Wind} feature, however, did not give us
+any new information.
+
+    \hypertarget{out-of-bag-error}{%
+\paragraph{Out of bag error}\label{out-of-bag-error}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The out of bag error for the base model is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+               \PY{n}{base\PYZus{}rf}\PY{o}{.}\PY{n}{oob\PYZus{}score\PYZus{}}\PY{p}{,}
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The out of bag error for the reduced features model is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+               \PY{n}{rf\PYZus{}new}\PY{o}{.}\PY{n}{oob\PYZus{}score\PYZus{}}\PY{p}{,}
+               \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The out of bag error for the model with Maximum Wind removed is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+               \PY{n}{rf\PYZus{}nw}\PY{o}{.}\PY{n}{oob\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The out of bag error for the base model is: 0.9450466821229401 
+The out of bag error for the reduced features model is: 0.9744031580926124 
+The out of bag error for the model with Maximum Wind removed is: 0.7391440566451533
+
+    \end{Verbatim}
+
+    Based on the out of bag errors above, the \texttt{base\ model}
+misclassifies about 5\% of the samples, the
+\texttt{reduced\ features\ model} misclassifies less than 3\% of the
+samples and \texttt{the\ model\ without\ Maximum\ Wind} misclassifies
+about 26\% of the samples.
+
+    \hypertarget{exploratory-data-analysis}{%
+\paragraph{Exploratory Data Analysis}\label{exploratory-data-analysis}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low Wind SW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low Wind NW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Moderate Wind NE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_105_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Moderate Wind SE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Moderate Wind SW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Moderate Wind NW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_108_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind NE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind SE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_110_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind SW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_111_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Wind NW}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low Wind SE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_113_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low Wind NE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_114_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minimum Pressure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum Wind}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_116_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lifetime\PYZus{}hours}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}atlantic}\PY{p}{)}\PY{p}{;} 
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_117_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{final\PYZus{}atlantic}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{exclude} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{number}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:}               ID     Name      Date   Time  Event Status Latitude Longitude  \textbackslash{}
+         count      49105    49105     49105  49105  49105  49105    49105     49105   
+         unique      1814      288      9983     92     10      9      597      1036   
+         top     AL031899  UNNAMED  19710912   1200            TS    28.0N     65.0W   
+         freq         133    26563        24  12296  48141  17804      299       181   
+         first        NaN      NaN       NaN    NaN    NaN    NaN      NaN       NaN   
+         last         NaN      NaN       NaN    NaN    NaN    NaN      NaN       NaN   
+         
+                            DateTime  
+         count                 49105  
+         unique                38310  
+         top     1971-09-12 00:00:00  
+         freq                      6  
+         first   1851-06-25 00:00:00  
+         last    2015-11-13 12:00:00  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{final\PYZus{}atlantic}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} ID                      0
+         Name                    0
+         Date                    0
+         Time                    0
+         Event                   0
+         Status                  0
+         Latitude                0
+         Longitude               0
+         Maximum Wind            0
+         Minimum Pressure    30669
+         Low Wind NE         43184
+         Low Wind SE         43184
+         Low Wind SW         43184
+         Low Wind NW         43184
+         Moderate Wind NE    43184
+         Moderate Wind SE    43184
+         Moderate Wind SW    43184
+         Moderate Wind NW    43184
+         High Wind NE        43184
+         High Wind SE        43184
+         High Wind SW        43184
+         High Wind NW        43184
+         Category                0
+         DateTime                0
+         Lifetime                0
+         Lifetime\_hours          0
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{final\PYZus{}atlantic}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} (49105, 26)
+\end{Verbatim}
+            
+    When looking at the null values for each column and the shape of the
+dataframe, it appears that a majority of the rows for
+\texttt{Low\ Winds}, \texttt{Moderate\ Winds}, and
+\texttt{High\ Wind\ (NE,\ SE,\ SW,\ and\ NW)} are empty. This absence of
+values may make it harder to find the effect of these variables on the
+\texttt{Category} of the hurricane. It should also be noted that
+\texttt{Maximum\ Wind} does not have any null values which could explain
+its large effect on the \texttt{Category} of the hurricane.
+
+    The above table shows us the coefficients obtained from the base model.
+It can be observed that \texttt{Maximum\ Wind} has the highest
+coefficient which makes sense because \texttt{Maximum\ Wind} was primary
+variable used to determine the category of the tropical cyclone.
+\texttt{Minimum\ Pressure} seems to be the second most essential
+variable in the classification of a tropical cyclone.
+\texttt{Low\ Wind\ NE} seems to be the least important variable in the
+classification. The second table shows us the results of tailoring the
+training data to contain only the variables with significantly high
+importance from the base model.After removing some variables, the
+coefficient of the \texttt{Maximum\ Wind} variable further increased
+while the coefficient of the \texttt{Minimum\ Pressure} variable
+decreased.
+
+    The purpose of this project was to build a classification model that
+accurately categorizes the hurricanes strength and to find other
+variables that may play a role in determining the severity of a
+hurricane. The two main variables that were identified from this
+analysis were \texttt{Maximum\ Wind} and \texttt{Minimum\ Pressure}.
+While an accurate classification model was built, the presence of so
+many null values in a lot of the rows may explain why more significant
+indicators of the severity of a hurricane were not found. It was also
+identified that the \texttt{lifetime} of the hurricane could be a
+potential indicator of hte severity of the hurricane. While the
+\texttt{lifetime} of the hurricane seemed to have a slight effect on the
+\texttt{Category} of the hurricane, it was not very significant.
+
+    \hypertarget{references}{%
+\subsection{References}\label{references}}
+
+    {[}1{]}
+https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
+
+{[}2{]} Dataset from https://www.kaggle.com/noaa/hurricane-database
+
+{[}3{]}
+https://weather.com/safety/hurricane/news/saffir-simpson-hurricane-wind-scale
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
