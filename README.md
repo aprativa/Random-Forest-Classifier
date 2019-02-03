@@ -2,7 +2,7 @@ Random Forest Classifier
 ================
 
 
-The National Hurrican Center (NHC) uses the Saffir-Simpson Hurricane Wind Scale to determine the severity of hurricanes.  The scale categorizes the severity from 1 (minor damage) to 5 (life threatening). Using dataset that contains snapshots of a given hurricane from 1851 to 2014, a Random Forest Classification Model is developed in Python using sci-kit learn to accurately predict the Category of a hurricane. 
+The National Hurricane Center (NHC) uses the Saffir-Simpson Hurricane Wind Scale to determine the severity of hurricanes.  The scale categorizes the severity from 1 (minor damage) to 5 (life threatening). Using dataset that contains snapshots of a given hurricane from 1851 to 2014, a Random Forest Classification Model is developed in Python using sci-kit learn to accurately predict the Category of a hurricane. 
 
 ## License
 
